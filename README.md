@@ -1,18 +1,21 @@
 # Connect Snake
 
-A family fun game of connecting the dots and building a snake!
+An implementation of the game Snake inspired by the classic Connect Four game.
 
 ## Background
 
 This is the sourcecode for connect-snake.brahmlower.io, a project inspired by [this gif](https://imgur.com/gallery/GBrEM) I saw on Imgur the other day. Frontend development is not my preferred area of software development, so please excuse the horrible javascript. This project was thrown together with no real planning :)
 
+
 ## Building
 
-This was all thrown together super quickly so there's not much to actually build here yet. Just clone the repo and serve the files however you'd like. If you're overwhelmed with all the options, here's a simple one:
+Run the following to add this to your project:
 
 ```
-python -m SimpleHTTPServer 8000
+npm install git+https://github.com/bplower/connect-snake.git#how-do-i-npm --save-dev
 ```
+
+There's an example html file showing how to include the project in it's current state. It's quite messy, but I'm working on cleaning it up.
 
 ## Bugs/Issues/Contributions
 
