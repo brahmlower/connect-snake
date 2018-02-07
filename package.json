@@ -1,0 +1,25 @@
+{
+  "name": "connect-snake",
+  "version": "0.1.0",
+  "description": "An implementation of the game Snake inspired by the classic Connect Four game.",
+  "main": "connect-snake.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bplower/connect-snake.git"
+  },
+  "author": "Brahm Lower",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bplower/connect-snake/issues"
+  },
+  "homepage": "https://github.com/bplower/connect-snake#readme",
+  "files": [
+    "*.png"
+  ],
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.1.0",
+    "jshint": "^2.9.5"
+  },
+  "dependencies": {}
+}
