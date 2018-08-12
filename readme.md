@@ -6,7 +6,7 @@ An implementation of the game Snake inspired by the classic Connect Four game an
 
 This is the sourcecode for snake game at [connect-snake.brahmlower.io](http://connect-snake.brahmlower.io). I'm primarily a backend developer, so my frontend code may be a little rough- feel free to open a pull request if you want to change anything :)
 
-![](https://i.imgur.com/zWqxGbg.gifv)
+![example](https://i.imgur.com/qMxSQ5G.gif)
 
 ## Using the library
 
