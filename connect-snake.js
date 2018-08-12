@@ -1,6 +1,4 @@
 
-export { ConnectSnakeGame }
-
 // I realize that this list is pretty horrible. I tried to come up
 // with a clean equation to just calculate the xy coordinates for
 // each grid position, but it was taking to long and wasn't as
@@ -80,24 +78,24 @@ class Velocity {
       return {x: 1, y: 0}
     }
   }
-  static left() {
+  static left () {
     return new Velocity('left')
   }
-  static right() {
+  static right () {
     return new Velocity('right')
   }
-  static up() {
+  static up () {
     return new Velocity('up')
   }
-  static down() {
+  static down () {
     return new Velocity('down')
   }
 }
 
 class ConnectSnakeGame {
   constructor (nodeId) {
-    this.canvas
-    this.context
+    this.canvas = null
+    this.context = null
     this.board = null
     this.yellow = null
     this.red = null
@@ -111,9 +109,20 @@ class ConnectSnakeGame {
   }
 
   initializeGame () {
+    // Build dom elements
+    this.canvas = document.createElement('canvas')
+    this.canvas.setAttribute('width', 720)
+    this.canvas.setAttribute('height', 715)
+    this.canvas.setAttribute('id', 'gamecanvas')
+    this.context = this.canvas.getContext('2d')
+
     this.board = document.createElement('img')
     this.board.setAttribute('src', 'static/board.png')
     this.board.setAttribute('style', 'display: none')
+    let self = this
+    this.board.onload = () => {
+      self.context.drawImage(self.board, 0, 0)
+    }
 
     this.yellow = document.createElement('img')
     this.yellow.setAttribute('src', 'static/yellow.png')
@@ -123,50 +132,36 @@ class ConnectSnakeGame {
     this.red.setAttribute('src', 'static/red.png')
     this.red.setAttribute('style', 'display: none')
 
-    this.canvas = document.createElement('canvas')
-    this.canvas.setAttribute('width', 720)
-    this.canvas.setAttribute('height', 715)
-    this.canvas.setAttribute('id', 'gamecanvas')
-
     let elRoot = document.getElementById(this.nodeId)
     elRoot.appendChild(this.board)
     elRoot.appendChild(this.red)
     elRoot.appendChild(this.yellow)
     elRoot.appendChild(this.canvas)
-
-    // fjdkajfkd;ajfdka;
-    this.context = this.canvas.getContext('2d')
-    this.context.drawImage(this.board, 0, 0)
-    console.log('initialized')
   }
 
   gameStart () {
     // Make sure we're not overwriting an existing game
     if (this.game != null) { return }
     // Set everything to initial values. Clears values from previous plays
-    console.log('starting game')
     this.game = null
     this.gameFlash = 0
     this.food = null
     this.snake = null
     this.velInput = null
-    // start game preparation
-    this.context = this.canvas.getContext('2d')
     this.context.drawImage(this.board, 0, 0)
     this.snake = createSnake()
     this.food = this.createFood()
     this.renderSnake()
     this.renderFood()
-    let self = this
     window.addEventListener(
       'keydown',
-      (function(self) {
+      (function (self) {
         return function (e) { self.keypress(e) }
       })(this),
       false
     )
     this.game = setInterval(
-      (function(self) {
+      (function (self) {
         return function () { self.gameTick() }
       })(this),
       500
@@ -243,7 +238,6 @@ class ConnectSnakeGame {
     } else if (this.gameFlash < 7) {
       this.gameOver()
     } else {
-      console.log('You lost!')
       clearInterval(this.game)
       this.game = null
       window.removeEventListener('keydown', this.keypress, false)
@@ -283,5 +277,6 @@ class ConnectSnakeGame {
     this.renderFood()
     return true
   }
-
 }
+
+export { ConnectSnakeGame }

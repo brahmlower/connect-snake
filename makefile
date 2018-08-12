@@ -12,4 +12,4 @@ build:
 	node_modules/webpack/bin/webpack.js ./example.js --output public/bundle.js
 
 serve:
-	serve public
+	node_modules/serve/bin/serve.js public
