@@ -1,36 +1,10 @@
 <html>
-  <head>
-    <script src="connect-snake.js"></script>
-  </head>
-  <body onload="prepare_board()">
-    <h1> Connect Snake </h1>
-    <p>
-      An implementation of the game Snake inspired by the classic Connect Four game. Click the start button or press Space to start!
-      <button type="button" onclick="game_start()">Start</button>
-    </p>
-    <canvas id="myCanvas" width="720" height="715"></canvas>
-    <img id="board" src="board.png" style="display: none">
-    <img id="yellow" src="yellow.png" style="display: none">
-    <img id="red" src="red.png" style="display: none">
-
-    <p>
-      <a href="https://github.com/bplower/connect-snake">Source</a>
-      <a href="https://github.com/bplower/connect-snake/issues">Issue/Bug Tracker<a>
-    </p>
-    <script>
-      var canvas = document.getElementById('myCanvas');
-      var context = canvas.getContext('2d');
-
-      const red = document.getElementById('red');
-      const yellow = document.getElementById('yellow');
-
-      function space_to_start(event) {
-        if (event.code == "Space") {
-          event.preventDefault();
-          game_start();
-        }
-      }
-      window.addEventListener('keydown', space_to_start, false);
-    </script>
+  <body>
+    <h1>
+      Connect Snake
+      <button id='start' type="button">Start</button>
+    </h1>
+    <div id='snake'></div>
+    <script src="bundle.js"></script>
   </body>
 </html>

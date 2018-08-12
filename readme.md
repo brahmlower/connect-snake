@@ -12,7 +12,7 @@ This is the sourcecode for connect-snake.brahmlower.io, a project inspired by [t
 Run the following to add this to your project:
 
 ```
-npm install git+https://github.com/bplower/connect-snake.git#how-do-i-npm --save-dev
+npm install git+https://github.com/bplower/connect-snake.git
 ```
 
 There's an example html file showing how to include the project in it's current state. It's quite messy, but I'm working on cleaning it up.

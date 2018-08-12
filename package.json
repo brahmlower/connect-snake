@@ -14,12 +14,17 @@
   },
   "homepage": "https://github.com/bplower/connect-snake#readme",
   "files": [
-    "*.png"
+    "static"
   ],
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-jshint": "^2.1.0",
-    "jshint": "^2.9.5"
+    "eslint": "^5.3.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "webpack": "^4.16.5",
+    "webpack-command": "^0.4.1"
   },
   "dependencies": {}
 }
