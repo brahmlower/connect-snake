@@ -101,6 +101,8 @@ class ConnectSnakeGame {
     this.red = null
     this.game = null
     this.gameFlash = 0
+    this.interval = null
+    this.defaultInterval = 500
     this.food = null
     this.snake = null
     this.velInput = null
@@ -145,6 +147,7 @@ class ConnectSnakeGame {
     // Set everything to initial values. Clears values from previous plays
     this.game = null
     this.gameFlash = 0
+    this.interval = this.defaultInterval
     this.food = null
     this.snake = null
     this.velInput = null
@@ -160,11 +163,16 @@ class ConnectSnakeGame {
       })(this),
       false
     )
+    this.updateGameInterval()
+  }
+
+  updateGameInterval() {
+    clearInterval(this.game)
     this.game = setInterval(
       (function (self) {
         return function () { self.gameTick() }
       })(this),
-      500
+      this.interval
     )
   }
 
@@ -267,6 +275,8 @@ class ConnectSnakeGame {
     this.snake.tail.push(newPos)
     if (newPos.x === this.food.x && newPos.y === this.food.y) {
       this.food = this.createFood()
+      this.interval -= 20
+      this.updateGameInterval()
     } else {
       this.snake.tail = this.snake.tail.splice(1)
     }
