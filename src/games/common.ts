@@ -1,4 +1,4 @@
-import { ConnectBoardDriver } from "../ConnectBoardDriver"
+import { ConnectBoardDriver } from '../ConnectBoardDriver';
 
 export interface PlayerInput<T> {
   latestInput: () => T | null

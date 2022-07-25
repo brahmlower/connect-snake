@@ -1,10 +1,9 @@
-
 export {
   PlayerInput,
   Scene,
-} from './common'
+} from './common';
 
 export {
   Snake,
   SnakeControllerInput,
-}  from './Snake';
+} from './Snake';

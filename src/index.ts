@@ -1,4 +1,3 @@
-
 export {
   ReactConnectBoard,
   ReactConnectBoardProps,
@@ -12,5 +11,5 @@ export {
 } from './ConnectBoardDriver';
 
 export {
-  Snake
+  Snake,
 } from './games';

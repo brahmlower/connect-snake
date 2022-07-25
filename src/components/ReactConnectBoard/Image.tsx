@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { SimpleSpread } from './common';
 
 interface CustomImageProps {
@@ -6,8 +6,7 @@ interface CustomImageProps {
   onLoad: (ref: HTMLImageElement) => void,
 }
 
-interface ImageProps
-extends SimpleSpread<React.HTMLAttributes<HTMLImageElement>, CustomImageProps> {}
+type ImageProps = SimpleSpread<React.HTMLAttributes<HTMLImageElement>, CustomImageProps>
 
 const Image: React.FC<ImageProps> = (props: ImageProps) => {
   const { onLoad, ...elemProps } = props;
@@ -15,12 +14,12 @@ const Image: React.FC<ImageProps> = (props: ImageProps) => {
 
   useEffect(() => {
     if (ref.current === null) {
-        return;
+      return;
     }
-    onLoad(ref.current)
-  })
+    onLoad(ref.current);
+  });
 
-  return <img ref={ref} {...elemProps}/>
-}
+  return <img ref={ref} {...elemProps} />;
+};
 
 export default Image;

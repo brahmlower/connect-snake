@@ -1,5 +1,4 @@
-
 export {
   ReactConnectBoard,
-  ReactConnectBoardProps
+  ReactConnectBoardProps,
 } from './ConnectBoard';

@@ -1,26 +1,26 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react';
 import { SimpleSpread } from './common';
 
 interface CustomCanvasProps extends Record<string, any> {
     onReady: (canvas: HTMLCanvasElement) => void,
 }
 
-interface CanvasProps extends SimpleSpread<React.HTMLAttributes<HTMLCanvasElement>, CustomCanvasProps> {}
+type CanvasProps = SimpleSpread<React.HTMLAttributes<HTMLCanvasElement>, CustomCanvasProps>
 
 const Canvas: React.FC<CanvasProps> = (props: CanvasProps) => {
   const { onReady, ...elemProps } = props;
-  const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = useRef(null)
+  const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current
+    const canvas = canvasRef.current;
     if (canvas === null) {
-        return;
+      return;
     }
 
-    onReady(canvas)
-  }, [])
+    onReady(canvas);
+  }, []);
 
-  return <canvas ref={canvasRef} {...elemProps}/>
-}
+  return <canvas ref={canvasRef} {...elemProps} />;
+};
 
-export default Canvas
+export default Canvas;
