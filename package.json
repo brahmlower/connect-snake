@@ -21,6 +21,7 @@
     "build:esm": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir disc/cjs",
     "eslint": "eslint ./src",
+    "eslint:fix": "eslint ./src --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

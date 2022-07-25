@@ -1,9 +1,8 @@
-
 export {
   ReactConnectBoard,
-  ReactConnectBoardProps
+  ReactConnectBoardProps,
 } from './ReactConnectBoard';
 
 export {
-  ReactConnectSnake
+  ReactConnectSnake,
 } from './ReactConnectSnake';

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import Canvas from './Canvas'
-import Image from './Image'
-import imageBoard from './static/board.png'
-import imageRed from './static/red.png'
-import imageYellow from './static/yellow.png'
-import { ConnectBoardRenderer, HoleType } from '../../ConnectBoardDriver'
-import { SimpleSpread } from './common'
+import React, { useEffect, useState } from 'react';
+import Canvas from './Canvas';
+import Image from './Image';
+import imageBoard from './static/board.png';
+import imageRed from './static/red.png';
+import imageYellow from './static/yellow.png';
+import { ConnectBoardRenderer, HoleType } from '../../ConnectBoardDriver';
+import { SimpleSpread } from './common';
 
 type Coordinate = [number, number];
 
@@ -67,12 +67,19 @@ interface HoleTypeMap {
 
 class ReactConnectBoardRenderer implements ConnectBoardRenderer {
   private canvas: HTMLCanvasElement;
+
   private boardImg: HTMLImageElement;
+
   private redImg: HTMLImageElement;
+
   private yellowImg: HTMLImageElement;
+
   private canvasContext: CanvasRenderingContext2D;
+
   private holeBuffer: Record<number, HoleType> = {};
+
   private holeTypeMap: HoleTypeMap;
+
   private positionMap: Coordinate[];
 
   constructor(canvas: HTMLCanvasElement, boardImg: HTMLImageElement, redImg: HTMLImageElement, yellowImg: HTMLImageElement) {
@@ -86,19 +93,19 @@ class ReactConnectBoardRenderer implements ConnectBoardRenderer {
     this.holeTypeMap = {
       [HoleType.Red]: this.redImg,
       [HoleType.Yellow]: this.yellowImg,
-    }
+    };
 
     this.positionMap = imageHolePositions;
 
     // Try to initialize the canvas
     const context = this.canvas.getContext('2d');
     if (context === null) {
-      throw 'failed to initialize context'
+      throw 'failed to initialize context';
     }
     this.canvasContext = context;
 
     // Initialize the board
-    this.resetHoleBuffer()
+    this.resetHoleBuffer();
 
     // Draw the board to finish initialization
     this.resetBoard();
@@ -109,23 +116,23 @@ class ReactConnectBoardRenderer implements ConnectBoardRenderer {
   }
 
   resetBoard() {
-    this.canvasContext.drawImage(this.boardImg, 0, 0)
+    this.canvasContext.drawImage(this.boardImg, 0, 0);
   }
 
   resetHoleBuffer() {
-    this.holeBuffer = {}
+    this.holeBuffer = {};
   }
 
   flush() {
     // Reset the board first so that we have a clean slate to draw on. This enables us
     // to not need a specific image for rendering an empty hole.
-    this.resetBoard()
+    this.resetBoard();
 
     // Now iterate over the buffer of holes we were told to write
     Object.entries(this.holeBuffer).forEach(([posString, value]: [string, HoleType]) => {
       // We don't draw anything for empty holes
       if (value === HoleType.Empty) {
-        return
+        return;
       }
 
       // Have to reparse the position value into a number because javascript objects are stupid
@@ -137,17 +144,17 @@ class ReactConnectBoardRenderer implements ConnectBoardRenderer {
       // convert position to image coordinates
       const coordinate = this.positionMap[position];
       if (coordinate === undefined) {
-        console.error(`Attempted to access invalid board hole: ${position}`)
-        return
+        console.error(`Attempted to access invalid board hole: ${position}`);
+        return;
       }
       const [x, y] = coordinate;
 
       // Draw the hole image
       this.canvasContext.drawImage(img, x, y);
-    })
+    });
 
     // Reset the hole buffer now that we've written everything
-    this.resetHoleBuffer()
+    this.resetHoleBuffer();
   }
 }
 
@@ -155,30 +162,30 @@ interface CustomConnectBoardProps {
   onLoad: (renderer: ReactConnectBoardRenderer) => void
 }
 
-export interface ReactConnectBoardProps extends SimpleSpread<React.HTMLAttributes<HTMLElement>, CustomConnectBoardProps> {}
+export type ReactConnectBoardProps = SimpleSpread<React.HTMLAttributes<HTMLElement>, CustomConnectBoardProps>
 
 export const ReactConnectBoard: React.FC<ReactConnectBoardProps> = (props: ReactConnectBoardProps) => {
   const { onLoad, ...elemProps } = props;
-  let [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null)
-  let [redImgRef, setRedImgRef] = useState<HTMLImageElement | null>(null)
-  let [yellowImgRef, setYellowImgRef] = useState<HTMLImageElement | null>(null)
-  let [boardImgRef, setBoardImgRef] = useState<HTMLImageElement | null>(null)
+  const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null);
+  const [redImgRef, setRedImgRef] = useState<HTMLImageElement | null>(null);
+  const [yellowImgRef, setYellowImgRef] = useState<HTMLImageElement | null>(null);
+  const [boardImgRef, setBoardImgRef] = useState<HTMLImageElement | null>(null);
 
   useEffect(() => {
     if (!canvasRef || !boardImgRef || !redImgRef || !yellowImgRef) {
-      return
+      return;
     }
 
     const renderer = new ReactConnectBoardRenderer(canvasRef, boardImgRef, redImgRef, yellowImgRef);
     onLoad(renderer);
-  }, [canvasRef, boardImgRef, redImgRef, yellowImgRef])
+  }, [canvasRef, boardImgRef, redImgRef, yellowImgRef]);
 
   return (
     <div {...elemProps}>
-      <Canvas id='board-canvas' width={720} height={715} onReady={setCanvasRef}/>
-      <Image src={imageBoard} style={{ display: 'none' }} onLoad={setBoardImgRef}/>
-      <Image src={imageRed} style={{ display: 'none' }} onLoad={setRedImgRef}/>
-      <Image src={imageYellow} style={{ display: 'none' }} onLoad={setYellowImgRef}/>
+      <Canvas id="board-canvas" width={720} height={715} onReady={setCanvasRef} />
+      <Image src={imageBoard} style={{ display: 'none' }} onLoad={setBoardImgRef} />
+      <Image src={imageRed} style={{ display: 'none' }} onLoad={setRedImgRef} />
+      <Image src={imageYellow} style={{ display: 'none' }} onLoad={setYellowImgRef} />
     </div>
   );
-}
+};
