@@ -14,18 +14,52 @@
   },
   "homepage": "https://github.com/bplower/connect-snake#readme",
   "files": [
-    "static"
+    "src/static"
   ],
+  "scripts": {
+    "build": "rm -rf /dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir disc/cjs",
+    "eslint": "eslint ./src",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "@babel/core": "^7.18.9",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack4": "^6.5.9",
+    "@storybook/manager-webpack4": "^6.5.9",
+    "@storybook/react": "^6.5.9",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/node": "^18.0.6",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "babel-loader": "^8.2.5",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-storybook": "^0.6.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "serve": "^11.1.0",
+    "typescript": "^4.7.4",
     "webpack": "^4.39.2",
     "webpack-command": "^0.4.2"
-  },
-  "dependencies": {}
+  }
 }

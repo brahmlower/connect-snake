@@ -22,6 +22,21 @@ There's an example html file showing how to include the project in it's current 
 
 To get started, clone the repo, install the dependencies, build the project, then serve locally via:
 
+
+### Storybook
+
+You may need to set the following:
+
+```shell
+export NODE_OPTIONS=--openssl-legacy-provider
+```
+
+Then start storybook:
+
+```
+npm run storybook
+```
+
 ```
 make setup
 make build
