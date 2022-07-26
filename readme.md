@@ -4,9 +4,7 @@ An implementation of the game Snake inspired by the classic Connect Four game an
 
 ## Background
 
-This is the sourcecode for snake game at [connect-snake.brahmlower.io](http://connect-snake.brahmlower.io). I'm primarily a backend developer, so my frontend code may be a little rough- feel free to open a pull request if you want to change anything :)
-
-![example](https://i.imgur.com/qMxSQ5G.gif)
+This is the sourcecode for the connect snake game at [blog.brahmlower.io/connect-snake-game](https://blog.brahmlower.io/connect-snake-game/). Controls are arrow keys, and Space will start/pause.
 
 ## Using the library
 
@@ -16,12 +14,13 @@ You can install connect-snake via npm:
 npm install git+https://github.com/bplower/connect-snake.git
 ```
 
-There's an example html file showing how to include the project in it's current state. It's quite messy, but I'm working on cleaning it up. **Proper usage and api docs coming soon to a markdown file near you!**
+The example directory shows the component usage, though there isn't much configuration available at this time. A good deal of energy was put into abstracting the display image from the game itself, so it should be pretty easy to implement other games like [tetris](https://i.imgur.com/FOjGkkX.mp4) or [pong](https://i.imgur.com/Sw0xnSq.mp4).
 
 ## Development
 
-To get started, clone the repo, install the dependencies, build the project, then serve locally via:
-
+1. clone repo
+2. npm install
+3. profit?
 
 ### Storybook
 
