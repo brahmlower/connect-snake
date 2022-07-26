@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/connect-snake/static/js/main.8305c715.js",
+    "static/media/board.png": "/connect-snake/static/media/board.827fe3a982cc5daa38ea.png",
+    "index.html": "/connect-snake/index.html",
+    "main.8305c715.js.map": "/connect-snake/static/js/main.8305c715.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.8305c715.js"
+  ]
+}
