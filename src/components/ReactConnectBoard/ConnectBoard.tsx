@@ -9,6 +9,9 @@ import { SimpleSpread } from './common';
 
 type Coordinate = [number, number];
 
+const defaultWidth = 720;
+const hightWidthRatio = 715/720;
+
 const imageHolePositions: Coordinate[] = [
   // Row 0
   [285, 333], // Position 0, Column 0
@@ -74,6 +77,8 @@ class ReactConnectBoardRenderer implements ConnectBoardRenderer {
 
   private yellowImg: HTMLImageElement;
 
+  private scale: number;
+
   private canvasContext: CanvasRenderingContext2D;
 
   private holeBuffer: Record<number, HoleType> = {};
@@ -82,12 +87,14 @@ class ReactConnectBoardRenderer implements ConnectBoardRenderer {
 
   private positionMap: Coordinate[];
 
-  constructor(canvas: HTMLCanvasElement, boardImg: HTMLImageElement, redImg: HTMLImageElement, yellowImg: HTMLImageElement) {
+  constructor(canvas: HTMLCanvasElement, boardImg: HTMLImageElement, redImg: HTMLImageElement, yellowImg: HTMLImageElement, scale?: number) {
     // HTML Elements
     this.canvas = canvas;
     this.boardImg = boardImg;
     this.redImg = redImg;
     this.yellowImg = yellowImg;
+
+    this.scale = scale ? scale : 1;
 
     // Initialize reference maps
     this.holeTypeMap = {
@@ -111,12 +118,22 @@ class ReactConnectBoardRenderer implements ConnectBoardRenderer {
     this.resetBoard();
   }
 
+  drawScaledImage(image: HTMLImageElement, dx: number, dy: number): void {
+    this.canvasContext.drawImage(
+      image,
+      dx * this.scale,
+      dy * this.scale,
+      image.width * this.scale,
+      image.height * this.scale,
+    )
+  }
+
   writeHoleValue(value: HoleType, position: number): void {
     this.holeBuffer[position] = value;
   }
 
   resetBoard() {
-    this.canvasContext.drawImage(this.boardImg, 0, 0);
+    this.drawScaledImage(this.boardImg, 0, 0)
   }
 
   resetHoleBuffer() {
@@ -150,7 +167,7 @@ class ReactConnectBoardRenderer implements ConnectBoardRenderer {
       const [x, y] = coordinate;
 
       // Draw the hole image
-      this.canvasContext.drawImage(img, x, y);
+      this.drawScaledImage(img, x, y);
     });
 
     // Reset the hole buffer now that we've written everything
@@ -159,30 +176,35 @@ class ReactConnectBoardRenderer implements ConnectBoardRenderer {
 }
 
 interface CustomConnectBoardProps {
+  width?: number
   onLoad: (renderer: ReactConnectBoardRenderer) => void
 }
 
 export type ReactConnectBoardProps = SimpleSpread<React.HTMLAttributes<HTMLElement>, CustomConnectBoardProps>
 
 export const ReactConnectBoard: React.FC<ReactConnectBoardProps> = (props: ReactConnectBoardProps) => {
-  const { onLoad, ...elemProps } = props;
+  let { onLoad, width, ...elemProps } = props;
   const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null);
   const [redImgRef, setRedImgRef] = useState<HTMLImageElement | null>(null);
   const [yellowImgRef, setYellowImgRef] = useState<HTMLImageElement | null>(null);
   const [boardImgRef, setBoardImgRef] = useState<HTMLImageElement | null>(null);
+
+  const getWidth = () => props.width ? props.width : defaultWidth;
+
+  const getRatio = () => getWidth() / defaultWidth;
 
   useEffect(() => {
     if (!canvasRef || !boardImgRef || !redImgRef || !yellowImgRef) {
       return;
     }
 
-    const renderer = new ReactConnectBoardRenderer(canvasRef, boardImgRef, redImgRef, yellowImgRef);
+    const renderer = new ReactConnectBoardRenderer(canvasRef, boardImgRef, redImgRef, yellowImgRef, getRatio());
     onLoad(renderer);
   }, [canvasRef, boardImgRef, redImgRef, yellowImgRef]);
 
   return (
     <div {...elemProps}>
-      <Canvas id="board-canvas" width={720} height={715} onReady={setCanvasRef} />
+      <Canvas id="board-canvas" width={getWidth()} height={getWidth() * hightWidthRatio} onReady={setCanvasRef} />
       <Image src={imageBoard} style={{ display: 'none' }} onLoad={setBoardImgRef} />
       <Image src={imageRed} style={{ display: 'none' }} onLoad={setRedImgRef} />
       <Image src={imageYellow} style={{ display: 'none' }} onLoad={setYellowImgRef} />

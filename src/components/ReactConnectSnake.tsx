@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ConnectBoardRenderer } from '../ConnectBoardDriver';
 import { Snake, PlayerInput, SnakeControllerInput } from '../games';
-import { ReactConnectBoard } from './ReactConnectBoard/ConnectBoard';
+import { ReactConnectBoard, ReactConnectBoardProps } from './ReactConnectBoard/ConnectBoard';
 
 class SnakeKeyboardController implements PlayerInput<SnakeControllerInput> {
   input: SnakeControllerInput | null;
@@ -68,7 +68,9 @@ class SnakeKeyboardController implements PlayerInput<SnakeControllerInput> {
 
 const FPS = 60;
 
-export const ReactConnectSnake: React.FC<React.HTMLAttributes<HTMLElement>> = (props: React.HTMLAttributes<HTMLElement>) => {
+export interface ReactConnectSnakeProps extends Partial<ReactConnectBoardProps> {}
+
+export const ReactConnectSnake: React.FC<ReactConnectSnakeProps> = (props: ReactConnectSnakeProps) => {
   const [game] = useState<Snake>(new Snake());
   const [controller, setController] = useState<SnakeKeyboardController | null>(null);
 

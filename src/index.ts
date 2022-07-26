@@ -2,6 +2,7 @@ export {
   ReactConnectBoard,
   ReactConnectBoardProps,
   ReactConnectSnake,
+  ReactConnectSnakeProps,
 } from './components';
 
 export {

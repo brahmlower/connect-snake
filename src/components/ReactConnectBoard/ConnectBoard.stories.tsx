@@ -31,6 +31,18 @@ interface ManualTestComponentProps {
     holes: HolePosition[],
 }
 
+export const ScaledDownConnectBoard = BasicTemplate.bind({})
+ScaledDownConnectBoard.args = {
+  width: 500,
+  onLoad: () => {},
+}
+
+export const ScaledUpConnectBoard = BasicTemplate.bind({})
+ScaledUpConnectBoard.args = {
+  width: 900,
+  onLoad: () => {},
+}
+
 const ManualTestComponent: React.FC<ManualTestComponentProps> = (props: ManualTestComponentProps) => {
   const [renderer, setRenderer] = useState<ConnectBoardRenderer | null>(null);
 
@@ -62,7 +74,8 @@ ManualTestConnectBoard.args = {
 };
 
 interface LoopTestComponentProps {
-    intervalMs: number,
+  width: number,
+  intervalMs: number,
 }
 
 const LoopTestComponent: React.FC<LoopTestComponentProps> = (props: LoopTestComponentProps) => {
@@ -96,12 +109,18 @@ const LoopTestComponent: React.FC<LoopTestComponentProps> = (props: LoopTestComp
     setTimeout(onIteration, props.intervalMs);
   }, [props, renderer, position]);
 
-  return <ReactConnectBoard onLoad={setRenderer} />;
+  return <ReactConnectBoard onLoad={setRenderer} width={props.width} />;
 };
 
 const LoopTestTemplate: ComponentStory<typeof LoopTestComponent> = (args: LoopTestComponentProps) => <LoopTestComponent {...args} />;
 
 export const TestHolePropsTemplate = LoopTestTemplate.bind({});
 TestHolePropsTemplate.args = {
+  intervalMs: 200,
+};
+
+export const ScaledTestHolePropsTemplate = LoopTestTemplate.bind({});
+ScaledTestHolePropsTemplate.args = {
+  width: 500,
   intervalMs: 200,
 };
