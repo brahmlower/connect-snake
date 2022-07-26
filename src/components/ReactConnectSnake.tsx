@@ -68,7 +68,7 @@ class SnakeKeyboardController implements PlayerInput<SnakeControllerInput> {
 
 const FPS = 60;
 
-export const ReactConnectSnake: React.FC<any> = () => {
+export const ReactConnectSnake: React.FC<React.HTMLAttributes<HTMLElement>> = (props: React.HTMLAttributes<HTMLElement>) => {
   const [game] = useState<Snake>(new Snake());
   const [controller, setController] = useState<SnakeKeyboardController | null>(null);
 
@@ -99,7 +99,8 @@ export const ReactConnectSnake: React.FC<any> = () => {
 
   return (
     <ReactConnectBoard
-      tabIndex={0}
+      {...props}
+      style={{ "display": "inline-block" }}
       onFocus={onFocusIn}
       onBlur={onFocusOut}
       onLoad={handleOnLoad}
