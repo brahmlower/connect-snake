@@ -5,4 +5,5 @@ export {
 
 export {
   ReactConnectSnake,
+  ReactConnectSnakeProps,
 } from './ReactConnectSnake';
