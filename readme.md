@@ -37,13 +37,17 @@ Then start storybook:
 npm run storybook
 ```
 
-```
-make setup
-make build
-make serve
-```
+### Running the Example
 
-When building locally, everything is compiled to the `./public` folder, so any changes made to `example.html` or `example.js` will require the project to be rebuilt.
+Build the package first, then install the dependencies in the example:
+
+```
+npm build
+npm pack
+cd example
+npm install
+npm start
+```
 
 ## Bugs/Issues/Contributions
 

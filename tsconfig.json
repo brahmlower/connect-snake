@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES6",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "ES6",                                   /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "module": "ES2022",                                /* Specify what module code is generated. */
-    "outDir": "dist/esm",
+    "outDir": "dist",
     "moduleResolution": "node",
     "types": ["node"],
     "lib": ["ES5", "ES2015", "ES2016", "DOM", "ESNext"],
@@ -39,6 +39,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/static/*.png",
+  ],
+  "assets":[
+    "src/**/*.png"
   ]
 }
