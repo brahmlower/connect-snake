@@ -2,7 +2,6 @@
   "name": "connect-snake",
   "version": "0.1.0",
   "description": "An implementation of the game Snake inspired by the classic Connect Four game.",
-  "main": "connect-snake.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bplower/connect-snake.git"
@@ -13,15 +12,16 @@
     "url": "https://github.com/bplower/connect-snake/issues"
   },
   "homepage": "https://github.com/bplower/connect-snake#readme",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "src/static"
+    "/dist"
   ],
   "scripts": {
-    "build": "rm -rf /dist && npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir disc/cjs",
+    "build": "rm -rf dist && tsc && npm run copy-assets",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint ./src --fix",
+    "copy-assets": "cp -r ./src/components/ReactConnectBoard/static ./dist/components/ReactConnectBoard/static",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -56,8 +56,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-storybook": "^0.6.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "serve": "^11.1.0",
     "typescript": "^4.7.4",
     "webpack": "^4.39.2",
