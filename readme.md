@@ -11,7 +11,7 @@ This is the sourcecode for the connect snake game at [blog.brahmlower.io/connect
 You can install connect-snake via npm:
 
 ```
-npm install git+https://github.com/bplower/connect-snake.git
+npm install git+https://github.com/brahmlower/connect-snake.git
 ```
 
 The example directory shows the component usage, though there isn't much configuration available at this time. A good deal of energy was put into abstracting the display image from the game itself, so it should be pretty easy to implement other games like [tetris](https://i.imgur.com/FOjGkkX.mp4) or [pong](https://i.imgur.com/Sw0xnSq.mp4).
