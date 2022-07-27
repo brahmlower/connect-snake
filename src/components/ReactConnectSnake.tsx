@@ -55,7 +55,6 @@ export class SnakeKeyboardController implements PlayerInput<SnakeControllerInput
     return memInput;
   }
 
-  // eventInput(event: React.KeyboardEvent<HTMLElement> | undefined): void {
   eventInput(event: SnakeKeyboardControllerEvent | undefined): void {
     if (event === undefined) {
       return;
@@ -87,8 +86,8 @@ export const ReactConnectSnake: React.FC<ReactConnectSnakeProps> = (props: React
   const [game] = useState<Snake>(new Snake());
   const isMobile = useIsMobile();
   const [mobileKeyboard, setMobileKeyboard] = useState<JSX.Element | null>(null);
-  const [controller, setController] = useState<SnakeKeyboardController | null>(null);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [controller, ] = useState<SnakeKeyboardController >(new SnakeKeyboardController());
+  const [paused, setPaused] = useState<boolean>(false);
 
   useEffect(() => {
     game.setInputController(controller);
@@ -119,15 +118,9 @@ export const ReactConnectSnake: React.FC<ReactConnectSnakeProps> = (props: React
     }
   }, [controller, mobileKeyboard])
 
-  useEffect(() => {
-    isFocused
-      ? setController(new SnakeKeyboardController())
-      : setController(null)
-  }, [isFocused])
+  const handleOnFocus = () => setPaused(false);
 
-  const handleOnFocus = () => setIsFocused(true);
-
-  const handleOnBlur = () => setIsFocused(false);
+  const handleOnBlur = () => setPaused(true);
 
   const handleOnLoad = (renderer: ConnectBoardRenderer) => game.attachRenderer(renderer);
 
@@ -139,12 +132,17 @@ export const ReactConnectSnake: React.FC<ReactConnectSnakeProps> = (props: React
 
   // Start the game render loop once the game instance is available
   useEffect(() => {
+    // We want to tick only if the game is not paused
+    if (paused === true) {
+      return
+    }
+
     const intervalId = setInterval(
       () => { game.tick(); },
       1000 / FPS,
     );
     return () => clearInterval(intervalId);
-  }, [game]);
+  }, [game, paused]);
 
   return (
     <>
