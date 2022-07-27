@@ -357,7 +357,7 @@ export class Snake {
   }
 
   setInputController(controller: PlayerInput<SnakeControllerInput> | null) {
-    console.log('[Snake] attaching controller');
+    console.log(`[Snake] attaching controller (null: ${controller === null})`);
     this.playerInput = controller;
   }
 

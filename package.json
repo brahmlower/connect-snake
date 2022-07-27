@@ -19,9 +19,10 @@
   ],
   "scripts": {
     "build": "rm -rf dist && tsc && npm run copy-assets",
+    "repack": "npm run build && rm connect-snake-*.tgz && npm pack",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint ./src --fix",
-    "copy-assets": "cp -r ./src/components/ReactConnectBoard/static ./dist/components/ReactConnectBoard/static",
+    "copy-assets": "./copy-assets",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

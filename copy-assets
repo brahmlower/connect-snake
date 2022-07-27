@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cp -r ./src/components/ReactConnectBoard/static ./dist/components/ReactConnectBoard/static
+cp ./src/components/*.css ./dist/components/.
