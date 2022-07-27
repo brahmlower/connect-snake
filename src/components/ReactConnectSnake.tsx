@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { ConnectBoardRenderer } from '../ConnectBoardDriver';
 import { Snake, PlayerInput, SnakeControllerInput } from '../games';
 import { ReactConnectBoard, ReactConnectBoardProps } from './ReactConnectBoard/ConnectBoard';
+import { bindSnakeKeyboard, ReactConnectSnakeKeyboard } from './ReactConnectSnakeKeyboard';
+import useIsMobile from './useIsMobile';
 
-class SnakeKeyboardController implements PlayerInput<SnakeControllerInput> {
+export interface SnakeKeyboardControllerEvent {
+  code: string
+  preventDefault: () => void
+}
+
+export class SnakeKeyboardController implements PlayerInput<SnakeControllerInput> {
   input: SnakeControllerInput | null;
 
   defaultKeyBindings: Record<SnakeControllerInput, string> = {
@@ -22,7 +29,12 @@ class SnakeKeyboardController implements PlayerInput<SnakeControllerInput> {
     this.bindKeyDefaults();
   }
 
+  resetKeyBindings(): void {
+    this.keyBindings = {};
+  }
+
   bindKeyDefaults(): void {
+    this.resetKeyBindings()
     Object
       .keys(SnakeControllerInput)
       .filter((v) => !isNaN(Number(v)))
@@ -43,7 +55,8 @@ class SnakeKeyboardController implements PlayerInput<SnakeControllerInput> {
     return memInput;
   }
 
-  eventInput(event: React.KeyboardEvent<HTMLElement> | undefined): void {
+  // eventInput(event: React.KeyboardEvent<HTMLElement> | undefined): void {
+  eventInput(event: SnakeKeyboardControllerEvent | undefined): void {
     if (event === undefined) {
       return;
     }
@@ -72,15 +85,49 @@ export interface ReactConnectSnakeProps extends Partial<ReactConnectBoardProps> 
 
 export const ReactConnectSnake: React.FC<ReactConnectSnakeProps> = (props: ReactConnectSnakeProps) => {
   const [game] = useState<Snake>(new Snake());
+  const isMobile = useIsMobile();
+  const [mobileKeyboard, setMobileKeyboard] = useState<JSX.Element | null>(null);
   const [controller, setController] = useState<SnakeKeyboardController | null>(null);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   useEffect(() => {
     game.setInputController(controller);
   }, [controller]);
 
-  const onFocusIn = () => setController(new SnakeKeyboardController());
+  useEffect(() => {
+    // This function is only for setting the virtual keyboard for mobile devices, so
+    // if there's no controller attached to the game, or if we're not on a mobile
+    // device, then we don't create the mobile keyboard component
+    const keyboard = controller !== undefined && isMobile === true
+      ? <ReactConnectSnakeKeyboard onKeyDown={handleKeyDown} />
+      : null
+    setMobileKeyboard(keyboard)
+  }, [controller, isMobile])
 
-  const onFocusOut = () => setController(null);
+  useEffect(() => {
+    // If the controller is null then just bail because there's nothing for us to do
+    if (controller === null) {
+      return
+    }
+
+    // Set the controller bindings to default if the mobile keyboard is null, otherwise
+    // set the controller bidnings to the mobile keyboard bindings
+    if (mobileKeyboard === null) {
+      controller.bindKeyDefaults()
+    } else {
+      bindSnakeKeyboard(controller)
+    }
+  }, [controller, mobileKeyboard])
+
+  useEffect(() => {
+    isFocused
+      ? setController(new SnakeKeyboardController())
+      : setController(null)
+  }, [isFocused])
+
+  const handleOnFocus = () => setIsFocused(true);
+
+  const handleOnBlur = () => setIsFocused(false);
 
   const handleOnLoad = (renderer: ConnectBoardRenderer) => game.attachRenderer(renderer);
 
@@ -100,13 +147,17 @@ export const ReactConnectSnake: React.FC<ReactConnectSnakeProps> = (props: React
   }, [game]);
 
   return (
-    <ReactConnectBoard
-      {...props}
-      style={{ "display": "inline-block" }}
-      onFocus={onFocusIn}
-      onBlur={onFocusOut}
-      onLoad={handleOnLoad}
-      onKeyDown={handleKeyDown}
-    />
+    <>
+      <ReactConnectBoard
+        {...props}
+        style={{ "display": "inline-block" }}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
+        onLoad={handleOnLoad}
+        onKeyDown={handleKeyDown}
+      >
+        { mobileKeyboard ? mobileKeyboard : <></>}
+      </ReactConnectBoard>
+    </>
   );
 };

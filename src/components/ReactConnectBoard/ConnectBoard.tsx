@@ -208,6 +208,7 @@ export const ReactConnectBoard: React.FC<ReactConnectBoardProps> = (props: React
       <Image src={imageBoard} style={{ display: 'none' }} onLoad={setBoardImgRef} />
       <Image src={imageRed} style={{ display: 'none' }} onLoad={setRedImgRef} />
       <Image src={imageYellow} style={{ display: 'none' }} onLoad={setYellowImgRef} />
+      {props.children}
     </div>
   );
 };
