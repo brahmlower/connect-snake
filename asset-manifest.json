@@ -1,11 +1,14 @@
 {
   "files": {
-    "main.js": "/connect-snake/static/js/main.da303d1b.js",
+    "main.css": "/connect-snake/static/css/main.84ef7e5f.css",
+    "main.js": "/connect-snake/static/js/main.0f28874f.js",
     "static/media/board.png": "/connect-snake/static/media/board.827fe3a982cc5daa38ea.png",
     "index.html": "/connect-snake/index.html",
-    "main.da303d1b.js.map": "/connect-snake/static/js/main.da303d1b.js.map"
+    "main.84ef7e5f.css.map": "/connect-snake/static/css/main.84ef7e5f.css.map",
+    "main.0f28874f.js.map": "/connect-snake/static/js/main.0f28874f.js.map"
   },
   "entrypoints": [
-    "static/js/main.da303d1b.js"
+    "static/css/main.84ef7e5f.css",
+    "static/js/main.0f28874f.js"
   ]
 }
