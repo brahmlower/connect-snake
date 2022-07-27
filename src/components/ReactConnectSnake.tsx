@@ -3,7 +3,6 @@ import { ConnectBoardRenderer } from '../ConnectBoardDriver';
 import { Snake, PlayerInput, SnakeControllerInput } from '../games';
 import { ReactConnectBoard, ReactConnectBoardProps } from './ReactConnectBoard/ConnectBoard';
 import { bindSnakeKeyboard, ReactConnectSnakeKeyboard } from './ReactConnectSnakeKeyboard';
-import useIsMobile from './useIsMobile';
 
 export interface SnakeKeyboardControllerEvent {
   code: string
@@ -84,10 +83,10 @@ export interface ReactConnectSnakeProps extends Partial<ReactConnectBoardProps> 
 
 export const ReactConnectSnake: React.FC<ReactConnectSnakeProps> = (props: ReactConnectSnakeProps) => {
   const [game] = useState<Snake>(new Snake());
-  const isMobile = useIsMobile();
   const [mobileKeyboard, setMobileKeyboard] = useState<JSX.Element | null>(null);
   const [controller, ] = useState<SnakeKeyboardController >(new SnakeKeyboardController());
   const [paused, setPaused] = useState<boolean>(false);
+  const isMobile = window.matchMedia("only screen and (max-width: 480px)").matches;
 
   useEffect(() => {
     game.setInputController(controller);
