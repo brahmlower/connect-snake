@@ -41,7 +41,7 @@ npm run storybook
 Build the package first, then install the dependencies in the example:
 
 ```
-npm build
+npm run build
 npm pack
 cd example
 rm -rf node_modules

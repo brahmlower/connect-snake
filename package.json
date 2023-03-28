@@ -1,6 +1,6 @@
 {
   "name": "connect-snake",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An implementation of the game Snake inspired by the classic Connect Four game.",
   "repository": {
     "type": "git",
